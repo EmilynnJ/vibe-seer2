@@ -142,7 +142,6 @@ export class WebRTCService {
 
   // Send chat message
   sendChatMessage(message: string): void {
-    console.log('Chat message:', message);
   }
 
   // Check WebRTC support

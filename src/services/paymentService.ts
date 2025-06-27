@@ -72,8 +72,8 @@ export class PaymentService {
   async confirmPayment(paymentIntentClientSecret: string, paymentMethodId: string): Promise<{ success: boolean; paymentIntent?: any; error?: string }> {
     try {
       // Simulate payment processing
-      console.log('Processing payment with client secret:', paymentIntentClientSecret);
       await new Promise(resolve => setTimeout(resolve, 2000));
+
       
       return { success: true, paymentIntent: { id: 'pi_demo_success' } };
     } catch (error) {

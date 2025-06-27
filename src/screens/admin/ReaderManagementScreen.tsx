@@ -4,13 +4,24 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAdminStore } from '../../state/adminStore';
 import { Ionicons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { AdminReader } from '../../types/admin';
 
 export default function ReaderManagementScreen() {
   const { readers, createReader, updateReader, deactivateUser, isLoading } = useAdminStore();
   const navigation = useNavigation();
-  const [showCreateModal, setShowCreateModal] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [newReader, setNewReader] = useState({
+  const [showCreateModal, setShowCreateModal] = useState<boolean>(false);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [newReader, setNewReader] = useState<{
+    email: string;
+    password: string;
+    firstName: string;
+    lastName: string;
+    bio: string;
+    specialties: string[];
+    chatRate: string;
+    phoneRate: string;
+    videoRate: string;
+  }>({
     email: '',
     password: '',
     firstName: '',
@@ -22,13 +33,13 @@ export default function ReaderManagementScreen() {
     videoRate: ''
   });
 
-  const filteredReaders = readers.filter(reader =>
+  const filteredReaders = readers.filter((reader: AdminReader) =>
     reader.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     reader.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     reader.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleCreateReader = async () => {
+  const handleCreateReader = async (): Promise<void> => {
     if (!newReader.email || !newReader.password || !newReader.firstName || !newReader.lastName) {
       Alert.alert('Error', 'Please fill in all required fields');
       return;
@@ -65,7 +76,7 @@ export default function ReaderManagementScreen() {
     }
   };
 
-  const handleDeactivateReader = (reader: any) => {
+  const handleDeactivateReader = (reader: AdminReader): void => {
     Alert.alert(
       'Deactivate Reader',
       `Are you sure you want to deactivate ${reader.firstName} ${reader.lastName}?`,
@@ -80,7 +91,7 @@ export default function ReaderManagementScreen() {
     );
   };
 
-  const formatCurrency = (amount: number) => `$${amount.toFixed(2)}`;
+  const formatCurrency = (amount: number): string => `$${amount.toFixed(2)}`;
 
   return (
     <ImageBackground

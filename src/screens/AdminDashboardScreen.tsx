@@ -36,8 +36,8 @@ export default function AdminDashboardScreen() {
     if (action.action === 'syncProducts') {
       await handleProductSync();
     } else {
-      console.log('🔧 Navigating to admin screen:', action.screen);
       navigation.navigate(action.screen as never);
+
     }
   };
 
@@ -54,8 +54,8 @@ export default function AdminDashboardScreen() {
           onPress: async () => {
             setIsSyncing(true);
             try {
-              console.log('🔄 Starting Stripe product sync...');
               const result = await StripeProductService.syncProductsWithStripe();
+
               
               if (result.success) {
                 Alert.alert(

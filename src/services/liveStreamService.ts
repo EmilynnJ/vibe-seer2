@@ -84,12 +84,12 @@ export class LiveStreamService {
     });
 
     this.socket.on('connect', () => {
-      console.log('Live stream service connected');
     });
 
+
     this.socket.on('disconnect', () => {
-      console.log('Live stream service disconnected');
     });
+
 
     // Stream events
     this.socket.on('stream-started', this.handleStreamStarted.bind(this));
@@ -180,8 +180,8 @@ export class LiveStreamService {
         this.onStreamStateChangeHandler(this.currentStream);
       }
 
-      console.log('Stream started:', this.currentStream.id);
     } catch (error) {
+
       this.handleError('Failed to start stream: ' + (error instanceof Error ? error.message : 'Unknown error'));
       throw error;
     }
@@ -213,8 +213,8 @@ export class LiveStreamService {
         this.onStreamStateChangeHandler(this.currentStream);
       }
 
-      console.log('Stream ended:', this.currentStream.id);
     } catch (error) {
+
       this.handleError('Failed to end stream: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
   }
@@ -256,8 +256,8 @@ export class LiveStreamService {
       this.viewers = [];
       this.chatMessages = [];
 
-      console.log('Left stream');
     } catch (error) {
+
       this.handleError('Failed to leave stream: ' + (error instanceof Error ? error.message : 'Unknown error'));
     }
   }
@@ -311,8 +311,8 @@ export class LiveStreamService {
 
       this.socket.emit('send-gift', giftEvent);
 
-      console.log('Gift sent:', giftEvent);
     } catch (error) {
+
       this.handleError('Failed to send gift: ' + (error instanceof Error ? error.message : 'Unknown error'));
       throw error;
     }
@@ -372,8 +372,8 @@ export class LiveStreamService {
 
   // Event handlers
   private handleStreamStarted(data: any) {
-    console.log('Stream started:', data);
     if (this.currentStream) {
+
       this.currentStream.isLive = true;
       if (this.onStreamStateChangeHandler) {
         this.onStreamStateChangeHandler(this.currentStream);
@@ -382,8 +382,8 @@ export class LiveStreamService {
   }
 
   private handleStreamEnded(data: any) {
-    console.log('Stream ended:', data);
     if (this.currentStream) {
+
       this.currentStream.isLive = false;
       if (this.onStreamStateChangeHandler) {
         this.onStreamStateChangeHandler(this.currentStream);

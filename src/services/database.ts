@@ -146,8 +146,8 @@ export class DatabaseService {
         )
       `);
 
-      console.log('Database schema initialized successfully');
     } catch (error) {
+
       console.error('Error initializing database schema:', error);
       throw error;
     }

@@ -59,7 +59,7 @@ function BookingModal({ visible, onClose, reader, sessionType, navigation }: Boo
       };
 
       // Simulate API call to create session
-      console.log('Creating session:', sessionData);
+
 
       Alert.alert(
         'Booking Confirmed!',

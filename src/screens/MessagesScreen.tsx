@@ -45,8 +45,8 @@ export default function MessagesScreen() {
     }
     
     // User is authenticated, send message
-    console.log('Sending message:', newMessage);
     Alert.alert('Message Sent', 'Your message has been sent successfully!');
+
     setNewMessage('');
   };
 

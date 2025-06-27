@@ -57,8 +57,8 @@ export default function HelpCenterScreen() {
   };
 
   const contactSupport = () => {
-    console.log('Contact support');
   };
+
 
   return (
     <BackgroundImage>

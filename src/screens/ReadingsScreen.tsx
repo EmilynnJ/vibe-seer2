@@ -56,7 +56,7 @@ export default function ReadingsScreen() {
       `Book a reading with ${reader.name} for ${reader.price}/min?`,
       [
         { text: 'Cancel', style: 'cancel' },
-        { text: 'Book Now', onPress: () => console.log('Booking reading with:', reader.name) }
+        { text: 'Book Now', onPress: () => {} }
       ]
     );
   };

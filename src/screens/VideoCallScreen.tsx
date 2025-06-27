@@ -65,14 +65,6 @@ export default function VideoCallScreen() {
     }
     
     try {
-      console.log('🚀 Starting reading session...');
-      console.log('📋 Session details:', {
-        reader: reader.name,
-        sessionType,
-        rate: reader.price,
-        balance: clientBalance
-      });
-      
       const newSession = await webrtcService.startReadingSession({
         readerId: reader.id,
         clientId: user.email,
@@ -86,9 +78,7 @@ export default function VideoCallScreen() {
       // Simulate connection delay
       setTimeout(() => {
         setIsConnecting(false);
-        console.log('✅ Session connected successfully');
       }, 3000);
-      
     } catch (error) {
       console.error('❌ Failed to start session:', error);
       Alert.alert('Connection Failed', 'Unable to start the reading session. Please try again.');

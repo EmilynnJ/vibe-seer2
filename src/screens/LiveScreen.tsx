@@ -70,7 +70,7 @@ export default function LiveScreen() {
         `Join ${stream.reader.name}'s live session: "${stream.title}"?`,
         [
           { text: 'Cancel', style: 'cancel' },
-          { text: 'Join', onPress: () => console.log('Joining stream:', stream.id) }
+          { text: 'Join', onPress: () => {} }
         ]
       );
     } else {
@@ -79,7 +79,7 @@ export default function LiveScreen() {
         `Get notified when ${stream.reader.name}'s stream starts?`,
         [
           { text: 'Cancel', style: 'cancel' },
-          { text: 'Remind Me', onPress: () => console.log('Setting reminder for:', stream.id) }
+          { text: 'Remind Me', onPress: () => {} }
         ]
       );
     }

@@ -61,8 +61,8 @@ export default function CommunityScreen() {
     }
     
     // User is authenticated, proceed with action
-    console.log(`${action} post:`, postId);
     Alert.alert('Success', `Post ${action}d successfully!`);
+
   };
 
   const formatTimeAgo = (timestamp: string) => {
