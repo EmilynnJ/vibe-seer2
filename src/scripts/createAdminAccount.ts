@@ -2,8 +2,8 @@ import ApiService from '../services/apiService';
 
 export async function createAdminAccount() {
   try {
-    console.log('Creating SoulSeer admin account...');
-    
+
+
     // In production, this would create the admin account in the database
     const adminData = {
       email: 'emilynnj14@gmail.com',
@@ -14,12 +14,12 @@ export async function createAdminAccount() {
     };
 
     // Production would use: await ApiService.createUser(adminData)
-    console.log('✅ Admin account configured for:', adminData.email);
-    console.log('📧 Email: emilynnj14@gmail.com');
-    console.log('🔑 Password: JayJas1423!');
-    console.log('👤 Name: Emilynn Johnson');
-    console.log('🎭 Role: Platform Administrator');
-    
+    await ApiService.createUser(adminData)
+
+
+
+
+
     // Create admin settings
     const adminSettings = {
       platform_commission: { rate: 0.30 },
@@ -33,8 +33,8 @@ export async function createAdminAccount() {
       }
     };
     
-    console.log('⚙️  Admin settings configured');
-    console.log('✅ SoulSeer admin account setup complete!');
+    
+    
     
     return {
       success: true,

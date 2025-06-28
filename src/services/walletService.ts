@@ -23,7 +23,7 @@ export class WalletService {
   private static instance: WalletService;
   private apiUrl = 'https://soulseer-api.herokuapp.com/api';
 
-  private constructor() {}
+  private constructor() { }
 
   static getInstance(): WalletService {
     if (!WalletService.instance) {
@@ -71,13 +71,10 @@ export class WalletService {
       if (!token) {
         throw new Error('Authentication required');
       }
-
       // Create payment intent for wallet top-up
-      console.log('Creating wallet payment intent for amount:', amount);
-      
-      // Process payment (simplified for demo)
-      console.log('💳 Processing wallet deposit:', amount);
-      
+      const paymentService = PaymentService; // Already the singleton instance due to default export
+      const paymentIntent = await paymentService.createWalletPaymentIntent(amount);
+
       // Simulate successful payment
       await new Promise(resolve => setTimeout(resolve, 2000));
 
@@ -108,11 +105,10 @@ export class WalletService {
         throw new Error(`Failed to add funds: ${response.statusText}`);
       }
 
-      console.log('✅ Funds added successfully:', amount);
       return { success: true, transaction };
+
     } catch (error) {
       console.error('Add funds error:', error);
-      
       // For demo, simulate successful transaction
       const transaction: WalletTransaction = {
         id: Date.now().toString(),
@@ -122,16 +118,15 @@ export class WalletService {
         timestamp: new Date(),
         status: 'completed'
       };
-      
-      return { success: true, transaction };
+      return { success: true, transaction, error: (error as Error).message };
     }
   }
 
   // Charge for reading session
   async chargeForReading(
-    amount: number, 
-    sessionId: string, 
-    readerId: string, 
+    amount: number,
+    sessionId: string,
+    readerId: string,
     description: string
   ): Promise<{ success: boolean; transaction?: WalletTransaction; error?: string }> {
     try {
@@ -159,17 +154,17 @@ export class WalletService {
       }
 
       const data = await response.json();
-      
+
       console.log('💸 Reading charge processed:', {
         amount,
         sessionId,
         description
       });
-      
+
       return { success: true, transaction: data.transaction };
     } catch (error) {
       console.error('Charge for reading error:', error);
-      
+
       // For demo, create simulated transaction
       const transaction: WalletTransaction = {
         id: Date.now().toString(),
@@ -181,7 +176,7 @@ export class WalletService {
         readerId,
         status: 'completed'
       };
-      
+
       return { success: true, transaction };
     }
   }
@@ -208,7 +203,7 @@ export class WalletService {
       return data.transactions;
     } catch (error) {
       console.error('Get transactions error:', error);
-      
+
       // Return demo transactions
       return [
         {
@@ -312,7 +307,7 @@ export class WalletService {
     const estimatedCost = ratePerMinute * estimatedMinutes;
     const minimumCost = ratePerMinute * 2; // Minimum 2 minutes
     const recommendedBalance = estimatedCost * 1.5; // 50% buffer
-    
+
     return {
       estimatedCost,
       minimumCost,
@@ -347,7 +342,7 @@ export class WalletService {
       return data.settings;
     } catch (error) {
       console.error('Get auto-reload settings error:', error);
-      
+
       // Return default settings
       return {
         enabled: false,

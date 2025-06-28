@@ -1,13 +1,13 @@
 import DatabaseService from '../services/database';
-import bcrypt from 'bcryptjs';
+const bcrypt = require('bcryptjs');
 
 export async function initializeDatabase() {
   try {
-    console.log('Initializing database schema...');
     await DatabaseService.initializeSchema();
-    
-    console.log('Creating admin user...');
-    
+
+
+
+
     // Check if admin already exists
     const existingAdmin = await DatabaseService.getUserByEmail('admin@soulseer.com');
     
@@ -22,12 +22,12 @@ export async function initializeDatabase() {
         role: 'admin'
       });
       
-      console.log('✅ Admin user created successfully');
-      console.log('📧 Email: admin@soulseer.com');
-      console.log('🔑 Password: admin123!');
-    } else {
-      console.log('✅ Admin user already exists');
-    }
+          } else {
+          }
+      
+      
+      
+      
 
     // Create some default settings
     await DatabaseService.query(`
@@ -39,8 +39,8 @@ export async function initializeDatabase() {
       ON CONFLICT (key) DO NOTHING
     `);
     
-    console.log('✅ Database initialization complete!');
-    return true;
+      return true;
+    
   } catch (error) {
     console.error('❌ Database initialization failed:', error);
     throw error;

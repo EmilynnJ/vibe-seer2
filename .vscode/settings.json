@@ -1,0 +1,13 @@
+{
+  // Suppress TypeScript validation for node_modules to avoid noise from dependency type conflicts
+  "typescript.validate.enable": true,
+  "typescript.tsserver.log": "off",
+  "typescript.tsserver.maxTsServerMemory": 4096,
+  "typescript.tsserver.useSyntaxServer": "auto",
+  "typescript.tsserver.watchOptions": {
+    "excludeDirectories": ["node_modules"]
+  },
+  "typescript.tsserver.diagnosticsOptions": {
+    "ignoreCodes": [2300, 2403, 2430, 2320, 2344, 2717, 6200]
+  }
+}

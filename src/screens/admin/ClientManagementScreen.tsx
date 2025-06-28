@@ -3,22 +3,23 @@ import { View, Text, ScrollView, Pressable, TextInput, Alert, Modal, ImageBackgr
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useAdminStore } from '../../state/adminStore';
 import { Ionicons } from '@expo/vector-icons';
+import { AdminClient } from '../../types/admin';
 
 export default function ClientManagementScreen() {
   const { clients, refundClient, deactivateUser, isLoading } = useAdminStore();
-  const [searchQuery, setSearchQuery] = useState('');
-  const [showRefundModal, setShowRefundModal] = useState(false);
-  const [selectedClient, setSelectedClient] = useState<any>(null);
-  const [refundAmount, setRefundAmount] = useState('');
-  const [refundReason, setRefundReason] = useState('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
+  const [showRefundModal, setShowRefundModal] = useState<boolean>(false);
+  const [selectedClient, setSelectedClient] = useState<AdminClient | null>(null);
+  const [refundAmount, setRefundAmount] = useState<string>('');
+  const [refundReason, setRefundReason] = useState<string>('');
 
-  const filteredClients = clients.filter(client =>
+  const filteredClients = clients.filter((client: AdminClient) =>
     client.firstName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     client.lastName.toLowerCase().includes(searchQuery.toLowerCase()) ||
     client.email.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
-  const handleRefund = async () => {
+  const handleRefund = async (): Promise<void> => {
     if (!selectedClient || !refundAmount || !refundReason) {
       Alert.alert('Error', 'Please fill in all fields');
       return;
@@ -42,7 +43,7 @@ export default function ClientManagementScreen() {
     }
   };
 
-  const handleDeactivateClient = (client: any) => {
+  const handleDeactivateClient = (client: AdminClient): void => {
     Alert.alert(
       'Deactivate Client',
       `Are you sure you want to deactivate ${client.firstName} ${client.lastName}?`,
@@ -57,7 +58,7 @@ export default function ClientManagementScreen() {
     );
   };
 
-  const formatCurrency = (amount: number) => `$${amount.toFixed(2)}`;
+  const formatCurrency = (amount: number): string => `$${amount.toFixed(2)}`;
 
   return (
     <ImageBackground

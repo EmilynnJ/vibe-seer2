@@ -22,8 +22,8 @@ const Stack = createNativeStackNavigator();
 export default function RoleBasedNavigator() {
   const { user } = useAppStore();
   
-  console.log('🧭 RoleBasedNavigator - Current user:', user);
-  console.log('🎭 User role:', user.role);
+  
+  
   
   // Determine initial screen based on user role
   const getInitialRoute = () => {
@@ -31,19 +31,19 @@ export default function RoleBasedNavigator() {
     
     switch (user.role) {
       case 'admin':
-        console.log('📍 Setting initial route to AdminDashboard');
         return 'AdminDashboard';
       case 'reader':
-        console.log('📍 Setting initial route to ReaderDashboard');
         return 'ReaderDashboard';
       default:
-        console.log('📍 Setting initial route to MainTabs');
         return 'MainTabs';
+
+
+
     }
   };
 
   const initialRoute = getInitialRoute();
-  console.log('🚀 Initial route determined:', initialRoute);
+
 
   return (
     <Stack.Navigator

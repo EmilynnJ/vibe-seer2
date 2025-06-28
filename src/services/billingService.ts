@@ -42,13 +42,13 @@ export class BillingService {
       // Initialize Stripe
       const { loadStripe } = await import('@stripe/stripe-js');
       this.stripe = await loadStripe(stripeKey);
-      
+
       if (!this.stripe) {
         throw new Error('Failed to initialize Stripe');
       }
 
-      console.log('Stripe billing service initialized');
     } catch (error) {
+
       console.error('Error initializing Stripe:', error);
       throw error;
     }
@@ -96,8 +96,8 @@ export class BillingService {
         amount: ratePerMinute
       });
 
-      console.log(`Billing session started: ${sessionId}`);
       return session;
+
     } catch (error) {
       console.error('Error starting billing session:', error);
       throw error;
@@ -113,7 +113,7 @@ export class BillingService {
     try {
       // Check client balance
       const clientBalance = await this.getClientBalance(session.clientId);
-      
+
       if (clientBalance < session.ratePerMinute) {
         // Insufficient balance - end session
         await this.endBillingSession(sessionId, 'insufficient_balance');
@@ -140,7 +140,7 @@ export class BillingService {
         balance: clientBalance - chargeAmount
       });
 
-      console.log(`Billed minute ${session.totalMinutes} for session ${sessionId}: $${chargeAmount}`);
+
 
       // Check for low balance warning
       const newBalance = clientBalance - chargeAmount;
@@ -155,7 +155,7 @@ export class BillingService {
 
     } catch (error) {
       console.error('Error processing billing cycle:', error);
-      
+
       // Emit payment failed event
       this.emitEvent({
         type: 'payment_failed',
@@ -192,8 +192,8 @@ export class BillingService {
       timestamp: new Date()
     });
 
-    console.log(`Billing session paused: ${sessionId}`);
   }
+
 
   async resumeBillingSession(sessionId: string): Promise<void> {
     const session = this.activeSessions.get(sessionId);
@@ -224,8 +224,8 @@ export class BillingService {
       timestamp: new Date()
     });
 
-    console.log(`Billing session resumed: ${sessionId}`);
   }
+
 
   async endBillingSession(sessionId: string, reason?: string): Promise<BillingSession> {
     const session = this.activeSessions.get(sessionId);
@@ -258,8 +258,8 @@ export class BillingService {
       amount: session.totalCost
     });
 
-    console.log(`Billing session ended: ${sessionId}, Total: $${session.totalCost}, Reason: ${reason || 'normal'}`);
     return session;
+
   }
 
   private async chargeClient(clientId: string, amount: number, sessionId: string): Promise<void> {
@@ -285,8 +285,8 @@ export class BillingService {
       }
 
       const result = await response.json();
-      console.log('Charge successful:', result);
     } catch (error) {
+
       console.error('Error charging client:', error);
       throw error;
     }
@@ -436,5 +436,8 @@ export class BillingService {
     this.eventHandlers.clear();
   }
 }
+
+// Fix: Ensure tsconfig.json has the correct module flag for dynamic imports
+// If using dynamic import(), set "module": "esnext" or a compatible value in tsconfig.json
 
 export default BillingService;

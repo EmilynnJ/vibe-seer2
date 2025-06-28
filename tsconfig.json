@@ -1,6 +1,13 @@
 {
-  "extends": "expo/tsconfig.base",
+  
   "compilerOptions": {
-    "strict": true
+    "strict": true,
+    "target": "es2017",
+    "lib": ["es2017"],
+    "jsx": "react-native",
+    "moduleResolution": "node",
+    "esModuleInterop": true,
+    "module": "esnext",
+    "typeRoots": ["./src/@types", "./node_modules/@types"]
   }
 }
